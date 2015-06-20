@@ -15,4 +15,5 @@
                :rsbag-tidelog
                :rsb-converter-protocol-buffer
                :uuid
-               :zip))
+               :zip
+               :flexi-streams))

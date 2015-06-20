@@ -3,8 +3,8 @@
 (defvar *rst-path*
   (merge-pathnames
    #P"rst-proto/proto/stable/"
-   (or (sb-posix:getenv "RST")
-       #P"/home/linus/Projects/Bielefeld/rst/")))
+   (or (uiop:parse-native-namestring (uiop:getenv "RST"))
+       *default-pathname-defaults*)))
 
 (defun load-proto-file (pathname)
   (let ((pbf:*proto-load-path* (list* *rst-path* pbf:*proto-load-path*)))
