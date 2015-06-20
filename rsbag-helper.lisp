@@ -37,10 +37,12 @@
         (ensure-keyword (channel-type bag-channel)))
   (unless (slot-boundp bag-channel 'channel)
     (with-slots (bag channel id scope type) bag-channel
-      (setf channel (setf (rsbag:bag-channel bag (format NIL "~a:~a" scope type))
-                          `(:type (:rsb-event-0.8 ,type)
-                            :source-name ,(princ-to-string id)
-                            :source-config ,(format nil "rsb:/#~A" id)))))))
+      (setf channel
+            (or (rsbag:bag-channel bag (format NIL "~a:~a" scope type) :if-does-not-exist NIL)
+                (setf (rsbag:bag-channel bag (format NIL "~a:~a" scope type))
+                      `(:type (:rsb-event-0.8 ,type)
+                        :source-name ,(princ-to-string id)
+                        :source-config ,(format nil "rsb:/#~A" id))))))))
 
 (defmethod print-object ((channel bag-channel) stream)
   (print-unreadable-object (channel stream :type T)
