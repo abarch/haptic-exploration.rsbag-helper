@@ -1,13 +1,15 @@
 (in-package #:rsbag-helper)
 
-(defvar *rst-path*
+(defvar *rst-path* NIL)
+
+(defun maybe-rst-path ()
   (merge-pathnames
    #P"rst-proto/proto/stable/"
    (or (uiop:parse-native-namestring (uiop:getenv "RST"))
        *default-pathname-defaults*)))
 
 (defun load-proto-file (pathname)
-  (let ((pbf:*proto-load-path* (list* *rst-path* pbf:*proto-load-path*)))
+  (let ((pbf:*proto-load-path* (list* *rst-path* (maybe-rst-path) pbf:*proto-load-path*)))
     (rsb.common:load-idl pathname :auto :purpose '(:packed-size :serializer :deserializer))))
 
 (defun make-precise-timestamp (universal)
