@@ -9,7 +9,8 @@
        *default-pathname-defaults*)))
 
 (defun load-proto-file (pathname)
-  (let ((pbf:*proto-load-path* (list* *rst-path* (maybe-rst-path) pbf:*proto-load-path*)))
+  (let ((pbf:*proto-load-path* (list* (maybe-rst-path) pbf:*proto-load-path*)))
+    (when *rst-path* (push *rst-path* pbf:*proto-load-path*))
     (rsb.common:load-idl pathname :auto :purpose '(:packed-size :serializer :deserializer))))
 
 (defun make-precise-timestamp (universal)
