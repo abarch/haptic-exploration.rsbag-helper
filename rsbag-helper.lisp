@@ -1,6 +1,7 @@
 (in-package #:rsbag-helper)
 
 (defvar *rst-path* NIL)
+(defvar *sequence-number* 0)
 
 (defun maybe-rst-path ()
   (merge-pathnames
@@ -54,8 +55,6 @@
 
 (defgeneric to-vicon-object (object)
   (:method (object) object))
-
-(defvar *sequence-number* 0)
 
 (defun make-entry (bag-channel payload timestamp &key (sequence-number (incf *sequence-number*))
                                                         (create timestamp)

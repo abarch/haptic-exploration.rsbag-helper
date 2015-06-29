@@ -9,7 +9,8 @@
   :homepage "https://github.com/Shinmera/rsbag-helper/"
   :serial T
   :components ((:file "package")
-               (:file "rsbag-helper"))
+               (:file "rsbag-helper")
+               (:file "documentation"))
   :depends-on (:cl-rsbag
                :cl-rsb-common
                :rsbag-tidelog
