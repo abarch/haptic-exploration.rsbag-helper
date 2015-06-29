@@ -22,6 +22,9 @@ or *DEFAULT-PATHNAME-DEFAULTS*.")
  (load-proto-file
   "Attempt to load a protobuf file on PATHNAME.")
 
+ (make-precise-timestamp
+  "Create a LOCAL-TIME:TIMESTAMP, but precise to a fractional UNIVERSAL-time.")
+
  (ensure-keyword
   "Make sure that THING is either a KEYWORD, or turned into one.")
 
