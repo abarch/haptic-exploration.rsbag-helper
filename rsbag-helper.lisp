@@ -3,14 +3,16 @@
 (defvar *rst-path* NIL)
 (defvar *sequence-number* 0)
 
-(defun maybe-rst-path ()
+(defun maybe-rst-path (domain)
   (merge-pathnames
-   #P"rst-proto/proto/stable/"
-   (or (uiop:parse-native-namestring (uiop:getenv "RST"))
-       *default-pathname-defaults*)))
+   (make-pathname :directory (list :relative domain))
+   (merge-pathnames  
+    #P"rst-proto/proto/"
+    (or (uiop:parse-native-namestring (uiop:getenv "RST"))
+	*default-pathname-defaults*))))
 
 (defun load-proto-file (pathname)
-  (let ((pbf:*proto-load-path* (list* (maybe-rst-path) pbf:*proto-load-path*)))
+  (let ((pbf:*proto-load-path* (list* (maybe-rst-path "stable" ) (maybe-rst-path "sandbox") pbf:*proto-load-path*)))
     (when *rst-path* (push *rst-path* pbf:*proto-load-path*))
     (rsb.common:load-idl pathname :auto :purpose '(:packed-size :serializer :deserializer))))
 
